@@ -43,6 +43,7 @@ func try_spawn_child():
 	
 	cgp.direction = d
 	cgp.segments = child_gp_capacity()
+	cgp.segment_thickness = get_child_segment_thickness()
 
 	get_parent().add_child(cgp)
 

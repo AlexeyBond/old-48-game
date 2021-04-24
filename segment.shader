@@ -14,5 +14,5 @@ void fragment() {
 	
 	float d = mix(ds / k, dl, k) * t;
 
-	COLOR = vec4(max(0.0, (1.0 - d)), 0,0,1);
+	COLOR = vec4(max(0.0, (1.0 - d)) - max(0, 1.0 - ds * t), 0,0,1);
 }
