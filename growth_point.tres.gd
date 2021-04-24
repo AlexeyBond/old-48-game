@@ -6,7 +6,7 @@ var prev_segment = null
 var min_length = 10
 var max_length = 20
 
-var child_probability = 0.1
+var child_probability = 0.2
 
 var segment_thickness = 0.5
 
@@ -20,7 +20,7 @@ func get_direction():
 	
 func is_alive():
 	return true
-	
+
 func child_gp_capacity():
 	return 10
 
@@ -53,10 +53,24 @@ func _ready():
 func grow():
 	var direction = get_direction().rotated(rand_range(-max_turn, max_turn)).normalized()
 	var distance = rand_range(min_length, max_length);
-	# TODO: Cast ray
 	
 	var next_pos = position + direction * distance
 	
+	var res = get_world_2d().direct_space_state.intersect_ray(
+		position,
+		next_pos
+	);
+
+	if 'position' in res:
+		var cp = res['position']
+		
+		var d = cp.distance_to(position)
+
+		if d < (min_length / 2):
+			return
+
+		next_pos = position + direction * d * 0.9
+
 	var segment = Segment.instance();
 	get_parent().add_child(segment);
 	

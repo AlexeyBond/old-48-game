@@ -1,11 +1,64 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
+[ext_resource path="res://sky.shader" type="Shader" id=1]
 [ext_resource path="res://controlled_growth_point.tscn" type="PackedScene" id=2]
+
+[sub_resource type="LineShape2D" id=1]
+normal = Vector2( 0, 1 )
+d = -40.0
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 1 )
+shader_param/col1 = Color( 0.243137, 0.678431, 1, 1 )
+shader_param/col2 = Color( 0, 0.835294, 1, 1 )
+shader_param/xoffsets = null
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends ColorRect
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	var cam: Camera2D = get_node('../roots/cgp/Camera2D')
+	self.rect_position.x = cam.global_transform.get_origin().x - 2880
+	self.get_material().set_shader_param(\"xoffsets\", Vector2(
+		self.rect_position.x,
+		self.rect_size.x
+	));
+"
 
 [node name="Node2D" type="Node2D"]
 
-[node name="cgp" parent="." instance=ExtResource( 2 )]
+[node name="roots" type="Node2D" parent="."]
 
-[node name="Camera2D" type="Camera2D" parent="cgp"]
+[node name="cgp" parent="roots" instance=ExtResource( 2 )]
+position = Vector2( 0, 10 )
+
+[node name="Camera2D" type="Camera2D" parent="roots/cgp"]
 current = true
 smoothing_enabled = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource( 2 )
+margin_left = -2880.0
+margin_top = -2160.0
+margin_right = 2880.0
+script = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

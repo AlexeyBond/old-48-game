@@ -19,6 +19,13 @@ config/name="old- 48 -game"
 run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/fullscreen=true
+window/size/always_on_top=true
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
