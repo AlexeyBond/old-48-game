@@ -31,6 +31,7 @@ func set_growth(g):
 shader = ExtResource( 1 )
 
 [node name="Node2D" type="Node2D"]
+show_behind_parent = true
 script = SubResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]

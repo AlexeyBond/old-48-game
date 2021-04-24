@@ -4,7 +4,7 @@ var max_turn = 1.0
 var prev_segment = null
 
 var min_length = 10
-var max_length = 20
+var max_length = 30
 
 var child_probability = 0.2
 
@@ -45,10 +45,6 @@ func try_spawn_child():
 	cgp.segments = child_gp_capacity()
 
 	get_parent().add_child(cgp)
-		
-
-func _ready():
-	pass # Replace with function body.
 
 func grow():
 	var direction = get_direction().rotated(rand_range(-max_turn, max_turn)).normalized()

@@ -1,7 +1,49 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://sky.shader" type="Shader" id=1]
 [ext_resource path="res://controlled_growth_point.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ground_postfx.shader" type="Shader" id=3]
+
+[sub_resource type="OpenSimplexNoise" id=5]
+
+[sub_resource type="NoiseTexture" id=6]
+seamless = true
+noise = SubResource( 5 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 3 )
+shader_param/ground_color1 = Color( 0.180392, 0.12549, 0.0235294, 1 )
+shader_param/ground_color2 = Color( 0.219608, 0.164706, 0.12549, 1 )
+shader_param/ground_color3 = Color( 0.113725, 0.0705882, 0, 1 )
+shader_param/root_color1 = Color( 0.572549, 0.337255, 0, 1 )
+shader_param/screen_size = null
+shader_param/screen_offset = null
+shader_param/noise = SubResource( 6 )
+
+[sub_resource type="GDScript" id=7]
+script/source = "extends ColorRect
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	var m = self.get_material()
+	var cam: Camera2D = get_node('../Camera2D');
+	m.set_shader_param(\"screen_size\", OS.get_window_size()
+	)
+	m.set_shader_param(\"screen_offset\",
+		cam.global_transform.get_origin() + cam.get_camera_screen_center()
+	);
+"
 
 [sub_resource type="LineShape2D" id=1]
 normal = Vector2( 0, 1 )
@@ -43,6 +85,17 @@ func _process(delta):
 
 [node name="cgp" parent="roots" instance=ExtResource( 2 )]
 position = Vector2( 0, 10 )
+
+[node name="ground-post" type="ColorRect" parent="roots/cgp"]
+material = SubResource( 4 )
+margin_left = -1.0
+margin_top = -11.0
+margin_right = 1.0
+margin_bottom = -9.0
+script = SubResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Camera2D" type="Camera2D" parent="roots/cgp"]
 current = true
