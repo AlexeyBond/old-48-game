@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://controlled_growth_point.tscn" type="PackedScene" id=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="cgp" parent="." instance=ExtResource( 2 )]
+
+[node name="Camera2D" type="Camera2D" parent="cgp"]
+current = true
+smoothing_enabled = true
