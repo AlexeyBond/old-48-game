@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/old48-game-ost-01.ogg-59c74b19c653a992acc651a29d41e44e.oggstr"
+
+[deps]
+
+source_file="res://sound/old48-game-ost-01.ogg"
+dest_files=[ "res://.import/old48-game-ost-01.ogg-59c74b19c653a992acc651a29d41e44e.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

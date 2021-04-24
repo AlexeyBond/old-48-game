@@ -1,6 +1,18 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://controlled_growth_point.gd" type="Script" id=1]
+[ext_resource path="res://sound/old48-game-ost-02.ogg" type="AudioStream" id=2]
+[ext_resource path="res://sound/old48-game-ost-03.ogg" type="AudioStream" id=3]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+volume_db = -80.0
+autoplay = true
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = -8.938
+autoplay = true
