@@ -5,6 +5,9 @@
 [ext_resource path="res://ground_postfx.shader" type="Shader" id=3]
 
 [sub_resource type="OpenSimplexNoise" id=5]
+seed = 250378049
+octaves = 5
+period = 96.1
 
 [sub_resource type="NoiseTexture" id=6]
 seamless = true
@@ -12,10 +15,11 @@ noise = SubResource( 5 )
 
 [sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 3 )
-shader_param/ground_color1 = Color( 0.180392, 0.12549, 0.0235294, 1 )
-shader_param/ground_color2 = Color( 0.219608, 0.164706, 0.12549, 1 )
-shader_param/ground_color3 = Color( 0.113725, 0.0705882, 0, 1 )
-shader_param/root_color1 = Color( 0.572549, 0.337255, 0, 1 )
+shader_param/ground_color1 = Color( 0.51, 0.34221, 0.0306, 1 )
+shader_param/ground_color2 = Color( 0.64, 0.442133, 0.3008, 1 )
+shader_param/ground_color3 = Color( 0.12, 0.074, 0, 1 )
+shader_param/root_color1 = Color( 0.843137, 0.498039, 0, 1 )
+shader_param/root_color2 = Color( 1, 0.682353, 0.34902, 1 )
 shader_param/screen_size = null
 shader_param/screen_offset = null
 shader_param/noise = SubResource( 6 )
@@ -100,6 +104,7 @@ __meta__ = {
 [node name="Camera2D" type="Camera2D" parent="roots/cgp"]
 current = true
 smoothing_enabled = true
+smoothing_speed = 2.0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
