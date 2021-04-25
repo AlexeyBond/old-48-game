@@ -36,7 +36,7 @@ void fragment() {
 		smoothstep(0.5, 0.6, n.r)
 	);
 
-	float thr = 0.5 + 0.4 * pow(abs(sin(TIME * 3.0 - length(vec2(0.5) - UV) * 8.0)), 6);
+	float thr = 0.1 + 0.4 * pow(abs(sin(TIME * 3.0 - length(vec2(0.5) - UV) * 8.0)), 6);
 
 	vec4 r = mix(root_color1, root_color2, smoothstep(thr + 0.4, thr + 0.5, root));
 
