@@ -1,9 +1,12 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://sky.shader" type="Shader" id=1]
 [ext_resource path="res://controlled_growth_point.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ground_postfx.shader" type="Shader" id=3]
 [ext_resource path="res://sound/old48-game-ost-01.ogg" type="AudioStream" id=4]
+[ext_resource path="res://grass.shader" type="Shader" id=5]
+[ext_resource path="res://ovalish.shader" type="Shader" id=6]
+[ext_resource path="res://fade_in.shader" type="Shader" id=7]
 
 [sub_resource type="OpenSimplexNoise" id=1]
 seed = 250378049
@@ -84,6 +87,32 @@ func _process(delta):
 	));
 "
 
+[sub_resource type="ShaderMaterial" id=8]
+shader = ExtResource( 5 )
+shader_param/color1 = Color( 0, 0.54902, 0.0588235, 1 )
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = ExtResource( 6 )
+shader_param/color = Color( 0.207843, 0.0745098, 0.0745098, 1 )
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = ExtResource( 7 )
+shader_param/t = null
+
+[sub_resource type="GDScript" id=11]
+script/source = "extends ColorRect
+
+var t = 0
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+func _process(delta):
+	t += delta
+	get_material().set_shader_param(\"t\", t)
+"
+
 [node name="Node2D" type="Node2D"]
 
 [node name="roots" type="Node2D" parent="."]
@@ -125,4 +154,40 @@ __meta__ = {
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 position = Vector2( 0, -30 )
 stream = ExtResource( 4 )
+volume_db = 1.705
 autoplay = true
+
+[node name="grass" type="ColorRect" parent="."]
+material = SubResource( 8 )
+margin_left = -71.2957
+margin_top = -304.0
+margin_right = 67.7043
+margin_bottom = -5.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="seed" type="ColorRect" parent="."]
+material = SubResource( 9 )
+margin_left = -27.6742
+margin_top = 9.33823
+margin_right = 12.3258
+margin_bottom = 35.3382
+rect_rotation = -42.7
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fade" type="ColorRect" parent="."]
+material = SubResource( 10 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1451.43
+margin_top = -1028.1
+margin_right = 1548.57
+margin_bottom = 971.904
+color = Color( 0, 0, 0, 1 )
+script = SubResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

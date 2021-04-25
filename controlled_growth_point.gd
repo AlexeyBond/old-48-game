@@ -25,14 +25,17 @@ func _process(delta):
 		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	);
 
-	print('v =', $AudioStreamPlayer2D.volume_db)
-	print (direction)
 	if active > 0:
 		$AudioStreamPlayer2D.volume_db = min(
-			$AudioStreamPlayer2D.volume_db + delta * 20, 19
+			$AudioStreamPlayer2D.volume_db + delta * 20, 5
 		)
+		$Timer.stop()
+		$Timer.start(20)
 	else:
 		$AudioStreamPlayer2D.volume_db = max(
 			$AudioStreamPlayer2D.volume_db - min(delta * 20, 0.5), -40
 		)
-	print('v`=', $AudioStreamPlayer2D.volume_db, ' ', $AudioStreamPlayer2D.volume_db - min(delta * 20, 0.5))
+
+
+func _on_Timer_timeout():
+	get_tree().change_scene("res://main.tscn")

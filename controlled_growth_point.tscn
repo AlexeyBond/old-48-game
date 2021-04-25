@@ -16,3 +16,6 @@ autoplay = true
 stream = ExtResource( 3 )
 volume_db = -8.938
 autoplay = true
+
+[node name="Timer" type="Timer" parent="."]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
