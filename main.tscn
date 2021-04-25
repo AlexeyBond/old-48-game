@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://sky.shader" type="Shader" id=1]
 [ext_resource path="res://controlled_growth_point.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://grass.shader" type="Shader" id=5]
 [ext_resource path="res://ovalish.shader" type="Shader" id=6]
 [ext_resource path="res://fade_in.shader" type="Shader" id=7]
+[ext_resource path="res://stone.tscn" type="PackedScene" id=8]
 
 [sub_resource type="OpenSimplexNoise" id=1]
 seed = 250378049
@@ -24,6 +25,8 @@ shader_param/ground_color2 = Color( 0.64, 0.442133, 0.3008, 1 )
 shader_param/ground_color3 = Color( 0.12, 0.074, 0, 1 )
 shader_param/root_color1 = Color( 0.843137, 0.498039, 0, 1 )
 shader_param/root_color2 = Color( 1, 0.682353, 0.34902, 1 )
+shader_param/stone_color1 = Color( 0.305882, 0.305882, 0.305882, 1 )
+shader_param/stone_color2 = Color( 0.85098, 0.85098, 0.85098, 1 )
 shader_param/screen_size = null
 shader_param/screen_offset = null
 shader_param/noise = SubResource( 2 )
@@ -93,7 +96,7 @@ shader_param/color = Color( 0.207843, 0.0745098, 0.0745098, 1 )
 
 [sub_resource type="ShaderMaterial" id=10]
 shader = ExtResource( 7 )
-shader_param/t = null
+shader_param/t = 1.0
 
 [sub_resource type="GDScript" id=11]
 script/source = "extends ColorRect
@@ -168,6 +171,11 @@ rect_rotation = -42.7
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Node2D" parent="." instance=ExtResource( 8 )]
+position = Vector2( -109.012, 298.107 )
+rotation = 0.404916
+scale = Vector2( 10, 1 )
 
 [node name="fade" type="ColorRect" parent="."]
 material = SubResource( 10 )
