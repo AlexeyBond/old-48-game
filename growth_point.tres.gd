@@ -48,6 +48,13 @@ func try_spawn_child():
 	cgp.segment_thickness = get_child_segment_thickness()
 
 	get_parent().add_child(cgp)
+	
+	cgp.connect('on_take_water', self, 'emit_take_water');
+
+signal on_take_water;
+
+func emit_take_water():
+	emit_signal("on_take_water")
 
 func grow():
 	var direction = get_direction().rotated(rand_range(-max_turn, max_turn)).normalized()
@@ -72,6 +79,13 @@ func grow():
 			return
 
 		next_pos = position + direction * d * 0.9
+		
+	if 'collider' in res:
+		var cs: Node2D = res['collider'].get_parent()
+		if cs.is_in_group('water'):
+			var taking = cs.take()
+			if taking:
+				emit_take_water()
 
 	var segment = Segment.instance();
 	get_parent().add_child(segment);
