@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://sky.shader" type="Shader" id=1]
 [ext_resource path="res://controlled_growth_point.tscn" type="PackedScene" id=2]
@@ -10,16 +10,35 @@
 [ext_resource path="res://stone.tscn" type="PackedScene" id=8]
 [ext_resource path="res://water.tscn" type="PackedScene" id=9]
 
-[sub_resource type="OpenSimplexNoise" id=1]
+[sub_resource type="GDScript" id=13]
+script/source = "extends Node2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[sub_resource type="OpenSimplexNoise" id=14]
 seed = 250378049
 octaves = 5
 period = 96.1
 
-[sub_resource type="NoiseTexture" id=2]
+[sub_resource type="NoiseTexture" id=15]
 seamless = true
-noise = SubResource( 1 )
+noise = SubResource( 14 )
 
-[sub_resource type="ShaderMaterial" id=3]
+[sub_resource type="ShaderMaterial" id=16]
 shader = ExtResource( 3 )
 shader_param/ground_color1 = Color( 0.43, 0.293833, 0.0215, 1 )
 shader_param/ground_color2 = Color( 0.45, 0.30825, 0.207, 1 )
@@ -32,9 +51,9 @@ shader_param/water_color1 = Color( 0, 0.439216, 1, 1 )
 shader_param/water_color2 = Color( 0, 1, 0.952941, 1 )
 shader_param/screen_size = null
 shader_param/screen_offset = null
-shader_param/noise = SubResource( 2 )
+shader_param/noise = SubResource( 15 )
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=17]
 script/source = "extends ColorRect
 
 
@@ -59,13 +78,13 @@ func _process(delta):
 	);
 "
 
-[sub_resource type="ShaderMaterial" id=6]
+[sub_resource type="ShaderMaterial" id=18]
 shader = ExtResource( 1 )
 shader_param/col1 = Color( 0.243137, 0.678431, 1, 1 )
 shader_param/col2 = Color( 0, 0.835294, 1, 1 )
 shader_param/xoffsets = null
 
-[sub_resource type="GDScript" id=7]
+[sub_resource type="GDScript" id=19]
 script/source = "extends ColorRect
 
 
@@ -89,19 +108,19 @@ func _process(delta):
 	));
 "
 
-[sub_resource type="ShaderMaterial" id=8]
+[sub_resource type="ShaderMaterial" id=20]
 shader = ExtResource( 5 )
 shader_param/color1 = Color( 0, 0.54902, 0.0588235, 1 )
 
-[sub_resource type="ShaderMaterial" id=9]
+[sub_resource type="ShaderMaterial" id=21]
 shader = ExtResource( 6 )
 shader_param/color = Color( 0.207843, 0.0745098, 0.0745098, 1 )
 
-[sub_resource type="ShaderMaterial" id=10]
+[sub_resource type="ShaderMaterial" id=22]
 shader = ExtResource( 7 )
 shader_param/t = 1.0
 
-[sub_resource type="GDScript" id=11]
+[sub_resource type="GDScript" id=23]
 script/source = "extends ColorRect
 
 var t = 0
@@ -117,7 +136,7 @@ func _process(delta):
 
 [sub_resource type="Theme" id=12]
 
-[sub_resource type="GDScript" id=13]
+[sub_resource type="GDScript" id=24]
 script/source = "extends RichTextLabel
 
 func _process(delta):
@@ -125,6 +144,7 @@ func _process(delta):
 "
 
 [node name="Node2D" type="Node2D"]
+script = SubResource( 13 )
 
 [node name="roots" type="Node2D" parent="."]
 
@@ -132,12 +152,12 @@ func _process(delta):
 position = Vector2( 0, 10 )
 
 [node name="ground-post" type="ColorRect" parent="roots/cgp"]
-material = SubResource( 3 )
+material = SubResource( 16 )
 margin_left = -1.0
 margin_top = -11.0
 margin_right = 1.0
 margin_bottom = -9.0
-script = SubResource( 4 )
+script = SubResource( 17 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -148,11 +168,11 @@ smoothing_enabled = true
 smoothing_speed = 2.0
 
 [node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource( 6 )
+material = SubResource( 18 )
 margin_left = -2880.0
 margin_top = -2160.0
 margin_right = 2880.0
-script = SubResource( 7 )
+script = SubResource( 19 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -164,7 +184,7 @@ volume_db = 1.705
 autoplay = true
 
 [node name="grass" type="ColorRect" parent="."]
-material = SubResource( 8 )
+material = SubResource( 20 )
 margin_left = -71.2957
 margin_top = -304.0
 margin_right = 67.7043
@@ -174,7 +194,7 @@ __meta__ = {
 }
 
 [node name="seed" type="ColorRect" parent="."]
-material = SubResource( 9 )
+material = SubResource( 21 )
 margin_left = -27.6742
 margin_top = 9.33823
 margin_right = 12.3258
@@ -193,7 +213,7 @@ scale = Vector2( 10, 1 )
 position = Vector2( 246.31, 299.05 )
 
 [node name="fade" type="ColorRect" parent="."]
-material = SubResource( 10 )
+material = SubResource( 22 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -1451.43
@@ -201,7 +221,7 @@ margin_top = -1028.1
 margin_right = 1548.57
 margin_bottom = 971.904
 color = Color( 0, 0, 0, 1 )
-script = SubResource( 11 )
+script = SubResource( 23 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -218,7 +238,7 @@ margin_right = -1354.73
 margin_bottom = 263.591
 theme = SubResource( 12 )
 scroll_active = false
-script = SubResource( 13 )
+script = SubResource( 24 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
