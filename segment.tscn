@@ -17,8 +17,8 @@ func setup(start_pos: Vector2, end_pos: Vector2, thck: float):
 	rotation = start_pos.angle_to_point(end_pos) + PI/2
 	length = start_pos.distance_to(end_pos)
 	var s = length / 20.0
-	scale = Vector2(1,s)
-	thickness = thck
+	scale = Vector2(s,s)
+	thickness = thck / s
 	set_growth(growth)
 	add_to_group('root_segments')
 
