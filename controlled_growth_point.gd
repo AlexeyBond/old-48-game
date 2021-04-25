@@ -17,6 +17,8 @@ func can_grow():
 
 func get_direction():
 	return direction.normalized()
+	
+var erase_depth = -100
 
 func _process(delta):
 	var active = abs(
@@ -35,6 +37,17 @@ func _process(delta):
 		$AudioStreamPlayer2D.volume_db = max(
 			$AudioStreamPlayer2D.volume_db - min(delta * 20, 0.5), -40
 		)
+		
+	self.min_depth = max(self.min_depth, self.position.y - 1000)
+		
+	var ed = max(erase_depth, self.min_depth - 1000)
+	
+	if ed != erase_depth:
+		erase_depth = ed
+		
+		for seg in get_tree().get_nodes_in_group('root_segments'):
+			if seg.position.y < erase_depth:
+				seg.get_parent().remove_child(seg)
 
 
 func _on_Timer_timeout():

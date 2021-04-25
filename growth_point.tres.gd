@@ -12,6 +12,8 @@ var segment_thickness = 0.5
 
 var growth_speed = 1000;
 
+var min_depth = -30
+
 func get_child_segment_thickness():
 	return segment_thickness * 0.9
 
@@ -52,7 +54,10 @@ func grow():
 	var distance = rand_range(min_length, max_length);
 	
 	var next_pos = position + direction * distance
-	
+
+	if next_pos.y < min_depth:
+		return
+
 	var res = get_world_2d().direct_space_state.intersect_ray(
 		position,
 		next_pos

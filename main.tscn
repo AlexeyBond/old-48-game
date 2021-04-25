@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://sky.shader" type="Shader" id=1]
 [ext_resource path="res://controlled_growth_point.tscn" type="PackedScene" id=2]
@@ -52,10 +52,6 @@ func _process(delta):
 		cam.global_transform.get_origin() + cam.get_camera_screen_center()
 	);
 "
-
-[sub_resource type="LineShape2D" id=5]
-normal = Vector2( 0, 1 )
-d = -40.0
 
 [sub_resource type="ShaderMaterial" id=6]
 shader = ExtResource( 1 )
@@ -135,11 +131,6 @@ __meta__ = {
 current = true
 smoothing_enabled = true
 smoothing_speed = 2.0
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource( 5 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource( 6 )

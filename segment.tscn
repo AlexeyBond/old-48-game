@@ -20,6 +20,7 @@ func setup(start_pos: Vector2, end_pos: Vector2, thck: float):
 	scale = Vector2(1,s)
 	thickness = thck
 	set_growth(growth)
+	add_to_group('root_segments')
 
 func set_growth(g):
 	growth = g
