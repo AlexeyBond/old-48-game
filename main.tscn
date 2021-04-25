@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://sky.shader" type="Shader" id=1]
 [ext_resource path="res://controlled_growth_point.tscn" type="PackedScene" id=2]
@@ -115,6 +115,15 @@ func _process(delta):
 	get_material().set_shader_param(\"t\", t)
 "
 
+[sub_resource type="Theme" id=12]
+
+[sub_resource type="GDScript" id=13]
+script/source = "extends RichTextLabel
+
+func _process(delta):
+	text = \"Score: \" + str(get_node('../../roots/cgp').get_score())
+"
+
 [node name="Node2D" type="Node2D"]
 
 [node name="roots" type="Node2D" parent="."]
@@ -193,6 +202,23 @@ margin_right = 1548.57
 margin_bottom = 971.904
 color = Color( 0, 0, 0, 1 )
 script = SubResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+scale = Vector2( 3, 3 )
+transform = Transform2D( 3, 0, 0, 3, 0, 0 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+anchor_right = 1.0
+margin_left = 11.2728
+margin_top = 9.59105
+margin_right = -1354.73
+margin_bottom = 263.591
+theme = SubResource( 12 )
+scroll_active = false
+script = SubResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

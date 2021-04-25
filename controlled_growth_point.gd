@@ -70,6 +70,8 @@ func grow():
 	try_grow_a_stone()
 	try_grow_a_water()
 
+var max_depth_record = 0
+
 func _process(delta):
 	var active = abs(
 		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
@@ -106,6 +108,8 @@ func _process(delta):
 		for stone in get_tree().get_nodes_in_group('water'):
 			if stone.position.y < erase_depth || abs(stone.position.x - position.x) > 4000:
 				stone.get_parent().remove_child(stone)
+	
+	max_depth_record = max(position.y, max_depth_record)
 
 
 func _on_Timer_timeout():
@@ -118,4 +122,4 @@ func _handle_take_water():
 	water_taken += 1
 	
 func get_score():
-	return water_taken + floor(min(0, position.y) / 1000.0)
+	return water_taken + floor(max_depth_record / 1000.0)
